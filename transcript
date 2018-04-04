@@ -1,0 +1,60 @@
+# Load canceled
+# Compile of Adder32bits.v was successful.
+# Compile of ALU.v was successful.
+# Compile of ALUControl.v was successful.
+# Compile of ANDGate.v was successful.
+# Compile of Control.v was successful.
+# Compile of DataMemory.v was successful.
+# Compile of DecoderRegisterFile.v was successful.
+# Compile of Definitions.v was successful.
+# Compile of MIPS_Processor.v was successful.
+# Compile of MIPS_Processor_TB.v was successful.
+# Compile of Multiplexer2to1.v was successful.
+# Compile of MUXRegisterFile.v was successful.
+# Compile of PC_Register.v was successful.
+# Compile of ProgramMemory.v was successful.
+# Compile of Register.v was successful.
+# Compile of RegisterFile.v was successful.
+# Compile of ShiftLeft2.v was successful.
+# Compile of SignExtend.v was successful.
+# 18 compiles, 0 failed with no errors.
+# Load canceled
+restart -f
+# No Design Loaded!
+# Load canceled
+vsim -gui work.Adder32bits work.ALU work.ALUControl work.ANDGate work.Control work.DataMemory work.DecoderRegisterFile work.MIPS_Processor work.MIPS_Processor_TB work.Multiplexer2to1 work.MUXRegisterFile work.PC_Register work.ProgramMemory work.Register work.RegisterFile work.ShiftLeft2 work.SignExtend
+# vsim -gui work.Adder32bits work.ALU work.ALUControl work.ANDGate work.Control work.DataMemory work.DecoderRegisterFile work.MIPS_Processor work.MIPS_Processor_TB work.Multiplexer2to1 work.MUXRegisterFile work.PC_Register work.ProgramMemory work.Register work.RegisterFile work.ShiftLeft2 work.SignExtend 
+# Start time: 08:24:43 on Mar 15,2018
+# Loading work.Adder32bits
+# Loading work.ALU
+# Loading work.ALUControl
+# Loading work.ANDGate
+# Loading work.Control
+# Loading work.DataMemory
+# Loading work.DecoderRegisterFile
+# Loading work.MIPS_Processor
+# Loading work.PC_Register
+# Loading work.ProgramMemory
+# Loading work.Multiplexer2to1
+# Loading work.RegisterFile
+# Loading work.Register
+# Loading work.MUXRegisterFile
+# Loading work.SignExtend
+# Loading work.MIPS_Processor_TB
+# Loading work.ShiftLeft2
+# ** Warning: (vsim-3017) C:/MIPS/MIPS_UniCiclo/Sources/MIPS_Processor.v(81): [TFMPC] - Too few port connections. Expected 10, found 7.
+#    Time: 0 ps  Iteration: 0  Instance: /MIPS_Processor/ControlUnit File: C:/MIPS/MIPS_UniCiclo/Sources/Control.v
+# ** Warning: (vsim-3722) C:/MIPS/MIPS_UniCiclo/Sources/MIPS_Processor.v(81): [TFMPC] - Missing connection for port 'MemRead'.
+# ** Warning: (vsim-3722) C:/MIPS/MIPS_UniCiclo/Sources/MIPS_Processor.v(81): [TFMPC] - Missing connection for port 'MemtoReg'.
+# ** Warning: (vsim-3722) C:/MIPS/MIPS_UniCiclo/Sources/MIPS_Processor.v(81): [TFMPC] - Missing connection for port 'MemWrite'.
+# ** Warning: (vsim-3017) C:/MIPS/MIPS_UniCiclo/Sources/MIPS_Processor_TB.v(24): [TFMPC] - Too few port connections. Expected 5, found 4.
+#    Time: 0 ps  Iteration: 0  Instance: /MIPS_Processor_TB/DUV File: C:/MIPS/MIPS_UniCiclo/Sources/MIPS_Processor.v
+# ** Warning: (vsim-3722) C:/MIPS/MIPS_UniCiclo/Sources/MIPS_Processor_TB.v(24): [TFMPC] - Missing connection for port 'PortIn'.
+# ** Warning: (vsim-3017) C:/MIPS/MIPS_UniCiclo/Sources/MIPS_Processor.v(81): [TFMPC] - Too few port connections. Expected 10, found 7.
+#    Time: 0 ps  Iteration: 0  Instance: /MIPS_Processor_TB/DUV/ControlUnit File: C:/MIPS/MIPS_UniCiclo/Sources/Control.v
+# ** Warning: (vsim-3722) C:/MIPS/MIPS_UniCiclo/Sources/MIPS_Processor.v(81): [TFMPC] - Missing connection for port 'MemRead'.
+# ** Warning: (vsim-3722) C:/MIPS/MIPS_UniCiclo/Sources/MIPS_Processor.v(81): [TFMPC] - Missing connection for port 'MemtoReg'.
+# ** Warning: (vsim-3722) C:/MIPS/MIPS_UniCiclo/Sources/MIPS_Processor.v(81): [TFMPC] - Missing connection for port 'MemWrite'.
+add wave -r /*
+# End time: 10:21:15 on Mar 15,2018, Elapsed time: 1:56:32
+# Errors: 0, Warnings: 10
