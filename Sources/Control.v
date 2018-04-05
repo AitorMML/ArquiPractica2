@@ -19,27 +19,43 @@ module Control
 	output BranchEQ,
 	output BranchNE,
 	output MemRead,
-	output MemtoReg,
+	output MemToReg,
 	output MemWrite,
 	output ALUSrc,
 	output RegWrite,
 	output [2:0]ALUOp
 );
-localparam R_Type = 0;
-localparam I_Type_ADDI = 6'h8;
-localparam I_Type_ORI = 6'h0d;
+localparam R_Type 		= 0;
+
+localparam I_Type_BEQ	= 6'h4;
+localparam I_Type_BNE	= 6'h5;
+localparam I_Type_ADDI 	= 6'h8;
+localparam I_Type_ANDI	= 6'hc;
+localparam I_Type_ORI 	= 6'h0d;
 localparam I_Type_LUI	= 6'h0f;
+localparam I_Type_LW		= 6'h23;
+localparam I_Type_SW 	= 6'h2b;
+
+localparam J_Type_J		= 6'h2;
+localparam J_Type_JAL	= 6'h3;
+
 
 
 reg [10:0] ControlValues;
 
 always@(OP) begin
 	casex(OP)
-		R_Type:       ControlValues= 11'b1_001_00_00_111;
-		I_Type_ADDI:  ControlValues= 11'b0_101_00_00_100;
-		I_Type_ORI:   ControlValues= 11'b0_101_00_00_101;
-		I_Type_LUI:	  ControlValues= 11'b0_101_00_00_000;
-		
+		R_Type:			ControlValues= 11'b1_001_00_00_111;
+		I_Type_ADDI:	ControlValues= 11'b0_101_00_00_100;
+		I_Type_ORI: 	ControlValues= 11'b0_101_00_00_101;
+		I_Type_LUI:	 	ControlValues= 11'b0_101_00_00_000;
+//		I_Type_ANDI: 	ControlValues= 11'b;
+//		I_Type_LW:	  	ControlValues= 11'b;
+//		I_Type_SW:	  	ControlValues= 11'b;
+//		I_Type_BEQ:	  	ControlValues= 11'bx_XXX_XX_01_XXX;
+//		I_Type_BNE:	  	ControlValues= 11'bx_XXX_XX_10_xxx;
+//		J_Type_J:		ControlValues= 11'b;
+//		J_Type_JAL:		ControlValues= 11'b;
 		
 		
 		default:
@@ -47,15 +63,15 @@ always@(OP) begin
 		endcase
 end	
 	
-assign RegDst = ControlValues[10];
-assign ALUSrc = ControlValues[9];
-assign MemtoReg = ControlValues[8];
-assign RegWrite = ControlValues[7];
-assign MemRead = ControlValues[6];
-assign MemWrite = ControlValues[5];
-assign BranchNE = ControlValues[4];
-assign BranchEQ = ControlValues[3];
-assign ALUOp = ControlValues[2:0];	
+assign RegDst 		= ControlValues[10];
+assign ALUSrc 		= ControlValues[9];
+assign MemtoReg 	= ControlValues[8];
+assign RegWrite 	= ControlValues[7];
+assign MemRead 	= ControlValues[6];
+assign MemWrite 	= ControlValues[5];
+assign BranchNE 	= ControlValues[4];
+assign BranchEQ 	= ControlValues[3];
+assign ALUOp 		= ControlValues[2:0];	
 
 endmodule
 
