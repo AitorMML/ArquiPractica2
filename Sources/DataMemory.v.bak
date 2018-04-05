@@ -11,27 +11,21 @@
 ******************************************************************/
 
 module DataMemory 
-#(	parameter DATA_WIDTH=32,
+#(	parameter DATA_WIDTH=8,
 	parameter MEMORY_DEPTH = 1024
 
 )
 (
 	input [DATA_WIDTH-1:0] WriteData,
 	input [DATA_WIDTH-1:0]  Address,
-	input MemWrite,
-	input MemRead, 
-	input clk,
+	input MemWrite,MemRead, clk,
 	output  [DATA_WIDTH-1:0]  ReadData
 );
 	
 	// Declare the RAM variable
-	
 	reg [DATA_WIDTH-1:0] ram[MEMORY_DEPTH-1:0];
 	wire [DATA_WIDTH-1:0] ReadDataAux;
-	wire [31:0] realAddress;
 
-	assign realAddress = (Address - 32'h10010000) / 4;
-	
 	always @ (posedge clk)
 	begin
 		// Write

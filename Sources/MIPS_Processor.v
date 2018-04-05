@@ -55,22 +55,29 @@ wire NotZeroANDBrachNE;
 wire ZeroANDBrachEQ;
 wire ORForBranch;
 wire ALUSrc_wire;
+wire MemRead_wire;
+wire MemToReg_wire;
+wire MemWrite_wire;
 wire RegWrite_wire;
 wire Zero_wire;
-wire [2:0] ALUOp_wire;
-wire [3:0] ALUOperation_wire;
-wire [4:0] WriteRegister_wire;
+wire [2:0] ALUOp_wire;							//
+wire [3:0] ALUOperation_wire;					//
+wire [4:0] WriteRegister_wire;				//
 wire [31:0] MUX_PC_wire;
-wire [31:0] PC_wire;
-wire [31:0] Instruction_wire;
-wire [31:0] ReadData1_wire;
-wire [31:0] ReadData2_wire;
+wire [31:0] PC_wire;								//
+wire [31:0] Instruction_wire;					//
+wire [31:0] ReadData1_wire;					//
+wire [31:0] ReadData2_wire;					//
 wire [31:0] InmmediateExtend_wire;
 wire [31:0] ReadData2OrInmmediate_wire;
 wire [31:0] ALUResult_wire;
 wire [31:0] PC_4_wire;
 wire [31:0] InmmediateExtendAnded_wire;
 wire [31:0] PCtoBranch_wire;
+wire [31:0] DataMemory_wire;
+wire [31:0] MUXDataMemory_wire;
+wire [31:0] ExtendedShift_wire;
+wire [31:0] Branches_wire;
 integer ALUStatus;
 
 
@@ -84,11 +91,14 @@ ControlUnit
 (
 	.OP(Instruction_wire[31:26]),
 	.RegDst(RegDst_wire),
-	.BranchNE(BranchNE_wire),
 	.BranchEQ(BranchEQ_wire),
-	.ALUOp(ALUOp_wire),
+	.BranchNE(BranchNE_wire),
+	.MemRead(MemRead_wire),
+	.MemToReg(MemToReg_wire),
+	.MemWrite(MemWrite_wire),
 	.ALUSrc(ALUSrc_wire),
-	.RegWrite(RegWrite_wire)
+	.RegWrite(RegWrite_wire),
+	.ALUOp(ALUOp_wire)
 );
 
 PC_Register
@@ -151,7 +161,7 @@ Register_File
 	.WriteRegister(WriteRegister_wire),
 	.ReadRegister1(Instruction_wire[25:21]),
 	.ReadRegister2(Instruction_wire[20:16]),
-	.WriteData(ALUResult_wire),
+	.WriteData(MUXDataMemory_wire),
 	.ReadData1(ReadData1_wire),
 	.ReadData2(ReadData2_wire)
 
@@ -199,11 +209,68 @@ ArithmeticLogicUnit
 	.A(ReadData1_wire),
 	.B(ReadData2OrInmmediate_wire),
 	.shamt(Instruction_wire[10:6]),
+	
 	.Zero(Zero_wire),
 	.ALUResult(ALUResult_wire)
 );
 
 assign ALUResultOut = ALUResult_wire;
+
+DataMemory		//para SW y LW
+DataMemoryUnit
+(
+	.WriteData(ReadData2_wire),	//readdata2 de registers
+	.Address(ALUResult_wire),	//resultado ALU
+	.MemWrite(MemWrite_wire),	//viene de control
+	.MemRead(MemRead_wire), 	//viene de control
+	.clk(clk),
+	
+	.ReadData(DataMemory_wire) //Va a multiplexor
+);
+
+Multiplexer2to1
+#(
+	.NBits(32)
+)
+MUX_DataMemoryToRegs
+(
+	.Selector(MemToReg_wire),
+	.MUX_Data0(ALUResult_wire),
+	.MUX_Data1(DataMemory_wire),
+	
+	.MUX_Output(MUXDataMemory_wire)
+
+);
+
+
+ShiftLeft2
+ShifLeftSignExtend
+(
+	.DataInput(InmmediateExtend_wire),
+	.DataOutput(ExtendedShift_wire)
+);
+
+Adder32bits
+BranchAdder	//Branching
+(
+	.Data0(PC_4_wire),
+	.Data1(ExtendedShift_wire),
+	.Result(Branches_wire) //al multiplexor de branches
+);
+
+Multiplexer2to1
+#(
+	.NBits(32)
+)
+MUX_ProgramCounter
+(
+	.Selector(ZeroANDBrachEQ), //pcsource = Branch AND Zero
+	.MUX_Data0(PC_4_wire),
+	.MUX_Data1(Branches_wire),
+	
+	.MUX_Output()
+
+);
 
 
 endmodule

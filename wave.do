@@ -12,12 +12,12 @@ add wave -noupdate -divider -height 20 {Reg v0}
 add wave -noupdate /MIPS_Processor_TB/DUV/Register_File/Register_v0/DataOutput
 add wave -noupdate -divider {ALU Result}
 add wave -noupdate -radix hexadecimal /MIPS_Processor_TB/DUV/ArithmeticLogicUnit/ALUResult
-add wave -noupdate /MIPS_Processor_TB/DUV/ArithmeticLogicUnit/A
-add wave -noupdate /MIPS_Processor_TB/DUV/ArithmeticLogicUnit/B
+add wave -noupdate -radix hexadecimal /MIPS_Processor_TB/DUV/ArithmeticLogicUnit/A
+add wave -noupdate -radix hexadecimal /MIPS_Processor_TB/DUV/ArithmeticLogicUnit/B
 TreeUpdate [SetDefaultTree]
 WaveRestoreCursors {{Cursor 1} {27 ps} 0}
 quietly wave cursor active 1
-configure wave -namecolwidth 200
+configure wave -namecolwidth 154
 configure wave -valuecolwidth 40
 configure wave -justifyvalue left
 configure wave -signalnamewidth 1
@@ -31,4 +31,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ps
 update
-WaveRestoreZoom {21 ps} {33 ps}
+WaveRestoreZoom {0 ps} {33 ps}
